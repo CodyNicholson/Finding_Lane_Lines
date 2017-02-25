@@ -1,0 +1,84 @@
+Third try:
+
+def process_image(imgPath):
+    image = mpimg.imread(imgPath)
+
+    ysize = image.shape[0]
+    xsize = image.shape[1]
+    color_select = np.copy(image)
+    line_image = np.copy(image)
+    gray = grayscale(image)
+
+    # Define color selection criteria
+    red_threshold = 200
+    green_threshold = 200
+    blue_threshold = 200
+
+    rgb_threshold = [red_threshold, green_threshold, blue_threshold]
+
+    # Define a kernel size and apply Gaussian smoothing
+    kernel_size = 5
+    blur_gray = cv2.GaussianBlur(gray,(kernel_size, kernel_size),0)
+
+    # Define our parameters for Canny and apply
+    low_threshold = 50
+    high_threshold = 150
+    edges = cv2.Canny(blur_gray, low_threshold, high_threshold)
+
+    # Define the Hough transform parameters
+    # Make a blank the same size as our image to draw on
+    rho = 1 #Makes lines thinner
+    theta = np.pi/180
+    threshold = 80
+    min_line_length = 30
+    max_line_gap = 10
+    line_image = np.copy(image)*0 #creating a blank to draw lines on
+    hImg = hough_lines(edges, rho, theta, threshold, min_line_length, max_line_gap)
+
+    lineImg = weighted_img(hImg, image, α=0.8, β=1., λ=0.)
+
+    #draw_lines(img, lines, color=[255, 0, 0], thickness=2)
+
+    # Define the vertices of a triangular mask.
+    # Keep in mind the origin (x=0, y=0) is in the upper left
+    left_bottom = [80, 539]
+    left_top = [490, 310] #flase right_bottom
+    right_bottom = [980, 539] #false left_top
+    right_top = [475,310]
+
+    polygon = np.array([ [(140, 539), (490, 300), (930, 539), (475,300) ] ], dtype=np.int32)
+
+    # Perform a linear fit (y=Ax+B) to each of the three sides of the triangle
+    # np.polyfit returns the coefficients [A, B] of the fit
+    fit_left = np.polyfit((left_bottom[0], left_top[0]), (left_bottom[1], left_top[1]), 1)
+    fit_right = np.polyfit((right_bottom[0], right_top[0]), (right_bottom[1], right_top[1]), 1)
+    fit_bottom = np.polyfit((left_bottom[0], right_bottom[0]), (left_bottom[1], right_bottom[1]), 1)
+
+    # Mask pixels below the threshold
+    color_thresholds = (image[:,:,0] < rgb_threshold[0]) | \
+                        (image[:,:,1] < rgb_threshold[1]) | \
+                        (image[:,:,2] < rgb_threshold[2])
+
+    # Find the region inside the lines
+    XX, YY = np.meshgrid(np.arange(0, xsize), np.arange(0, ysize))
+    region_thresholds = (YY > (XX*fit_left[0] + fit_left[1])) & \
+                        (YY > (XX*fit_right[0] + fit_right[1])) & \
+                        (YY < (XX*fit_bottom[0] + fit_bottom[1]))
+
+    # Mask color and region selection
+    color_select[color_thresholds | ~region_thresholds] = [0, 0, 0]
+    # Color pixels red where both color and region selections met
+    line_image[~color_thresholds & region_thresholds] = [255, 0, 0]
+
+    # Display the image and show region and color selections
+    plt.imshow(image)
+    x = [right_bottom[0], left_top[0], right_top[0], left_bottom[0]]
+    y = [right_bottom[1], left_top[1], right_top[1], left_bottom[1]]
+    plt.plot(x, y, 'b--', lw=4)
+    plt.imshow(color_select)
+    plt.imshow(line_image)
+    plt.imshow(gray, cmap='gray')
+    plt.imshow(hImg, cmap='gray')
+    plt.imshow(lineImg)
+    
+process_image('test_images/solidWhiteCurve.jpg')
