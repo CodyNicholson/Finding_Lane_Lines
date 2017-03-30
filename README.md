@@ -1,6 +1,6 @@
 #Finding Lane Lines - Project Write-Up
 
-This is my first project in the Self-Driving Car Nanodegree Program where, given images and videos taken from the front camera of a car, I detect the lane lines on the road and highlight them in the videos and images.
+This is my first project in the Self-Driving Car Nanodegree Program where, given images and videos taken from the front camera of a car, I detect the lane lines on the road and highlight them in the videos and images. To see my code please look at the SDCN_Project_1.ipynb Jupyter Notebook in the root directory of this repository.
 
 ***
 
