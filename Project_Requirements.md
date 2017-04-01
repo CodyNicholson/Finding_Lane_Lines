@@ -1,4 +1,5 @@
-#**Finding Lane Lines on the Road** 
+# **Finding Lane Lines on the Road**
+
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 <img src="laneLines_thirdPass.jpg" width="480" alt="Combined Image" />
@@ -99,4 +100,3 @@ Jupyter is an ipython notebook where you can run blocks of code and see results 
 A browser window will appear showing the contents of the current directory.  Click on the file called "P1.ipynb".  Another browser window will appear displaying the notebook.  Follow the instructions in the notebook to complete the project.  
 
 **Step 5:** Complete the project and submit both the Ipython notebook and the project writeup
-
