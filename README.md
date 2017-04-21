@@ -22,7 +22,7 @@ The car should not be concerned with objects that are not on the road in this ca
 
 The most difficult part of this project for me was drawing the lane lines on top of the image. To do this I used the Hough Lines algorithm to filter my grayscaled, blurred image so it only displayed the lines that has a minimum length of 18, a threshold of 22, and a maximum line gap of 1. This left me with only the lines that were large enough to be the lane lines.
 
-After this I called the Draw Lines function in the Hough Lines function that:
+After this I called the Draw Lines function that:
 
 - took the Hough Lines as input
 - calculated the slopes of every line
