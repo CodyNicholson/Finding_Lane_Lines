@@ -31,7 +31,7 @@ After this I called the Draw Lines function in the Hough Lines function that:
 - got the mean of all of the slopes and intercepts recorded in my lists
 - used the average slopes to generate the lines
 
-### Step 5 - Draw the lines and return the image
+### Step Five - Draw the lines and return the image
 
 After I had the lane lines selected in the image I drew those lines on top of the original image and returned the value.
 
