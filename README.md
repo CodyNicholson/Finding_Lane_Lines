@@ -2,7 +2,7 @@
 
 This is my first project in the Self-Driving Car Nanodegree Program where, given images and videos taken from the front camera of a car, I detect the lane lines on the road and highlight them in the videos and images. To see my code please look at the Finding_Lane_Lines_Project.ipynb Jupyter Notebook in the root directory of this repository. I was also able to draw the lane lines on videos of a car driving on a road. These videos can be found in the output_videos folder.
 
-You can find the code for this project at: https://codynicholson.github.io/Finding_Lane_Lines/
+You can find the code for this project at: https://codynicholson.github.io/Finding_Lane_Lines_Project/
 
 ***
 
